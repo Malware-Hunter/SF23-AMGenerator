@@ -42,6 +42,8 @@ def parse_args(argv):
     parser_action.add_argument('--label', help = 'VirusTotal Labelling', action = 'store_true')
     parser_action.add_argument('--vt-key', '-vtk', metavar = 'KEY',
         type = str, help = 'VirusTotal\'s API Key')
+    parser_action.add_argument('--reanalyze-time', '-rt', metavar = 'INT',
+        type = int, help = 'Time to Wait for Reanalysis (in Hours)', default = 24)
     parser_action.add_argument('--output-data', metavar = 'PATH',
         type = str, help = 'Data Output Directory', default = 'adg_data')
 

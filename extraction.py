@@ -27,7 +27,6 @@ class AndroGuardExtractor:
         os.makedirs(self.metadata_dir, exist_ok = True)
         os.makedirs(self.features_dir, exist_ok = True)
         os.makedirs(self.all_apicalls_dir, exist_ok = True)
-        #logging.basicConfig(format = '[%(asctime)s] %(name)s - %(levelname)s - %(message)s')
         self.logger = logging.getLogger('EXTRACTION')
         self.logger.setLevel(logging.INFO)
         self.agc_logger = logging.getLogger('androguard.core.api_specific_resources')

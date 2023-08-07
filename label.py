@@ -40,7 +40,7 @@ class VirusTotalLabeler:
         }
         self.report_wait_time = 15
         self.reanalyze_wait_time = 15
-        self.reanalyze_time = 3600 #86400 #wait 24h
+        self.reanalyze_time = args.reanalyze_time * 3600
         self.next_start = int(time.time() + 86401)
         self.log_file = {
             'report': f'log_report_{self.api_key[:5]}.log',
@@ -49,7 +49,6 @@ class VirusTotalLabeler:
         self.queue_file = 'queue_reanalyze.que'
         self.deadline = 1672531201 #epoch time to 2023-01-01 00:00:01
         os.makedirs(self.label_dir, exist_ok = True)
-        #logging.basicConfig(format = '[%(asctime)s] %(name)s - %(levelname)s - %(message)s')
         self.logger = {
             'report': logging.getLogger('REPORT'),
             'reanalyze': logging.getLogger('REANALYZE')
@@ -219,7 +218,6 @@ class VirusTotalLabeler:
             sha256_total_processed += 1
             print_info(f'Total Samples Processed: {sha256_total_processed} of {sha256_total_in_list}', self.logger['report'])
             print_info(f'Requests Used: {self.request_number} (Waiting For New Request)', self.logger['report'])
-            #if sha256_total_processed < sha256_total_in_list:
             time.sleep(self.wait_time['report'])
             self.api_key_access.release()
 

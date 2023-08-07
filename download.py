@@ -14,7 +14,6 @@ class AndrozooDownloader:
         self.download_dir = args.download_dir
         self.num_parallel_downloads = args.num_parallel_download
         os.makedirs(self.download_dir, exist_ok = True)
-        #logging.basicConfig(format = '[%(asctime)s] %(name)s - %(levelname)s - %(message)s')
         self.logger = logging.getLogger('DOWNLOAD')
         self.logger.setLevel(logging.INFO)
 

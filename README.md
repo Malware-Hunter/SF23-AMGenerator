@@ -9,15 +9,15 @@ The tool has been tested in the following environments:
 - Kernel = `Linux version 5.4.0-120-generic (buildd@lcy02-amd64-006) (gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)) #136-Ubuntu SMP Fri Jun 10 13:40:48 UTC 2022`
 - Python = `Python 3.8.10`
 
-## Requirements
-- Installing Python requirements:
+
+### :memo: Installing Python Requirements
 
     ```sh
     $ pip install -r requirements.txt
     ```
 
 
-### 📌 Available Arguments:
+### :pushpin: Available Arguments:
 
     ```
     usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH] [--androzoo-key KEY] [--num-parallel-download INT] [--extraction]
@@ -40,5 +40,7 @@ The tool has been tested in the following environments:
       --label               VirusTotal Labelling
       --vt-key KEY, -vtk KEY
                             VirusTotal's API Key
+      --reanalyze-time INT, -rt INT
+                            Time to Wait for Reanalysis (in Hours)
       --output-data PATH    Data Output Directory
     ```
