@@ -18,7 +18,6 @@ the tool has been tested in the following environments:
 
 ## :pushpin: Available Arguments:
 
-```
 usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH]
                 [--androzoo-key KEY] [--num-parallel-download INT]
                 [--extraction] [--num-parallel-extraction INT] [--label]
@@ -44,47 +43,47 @@ ADGen Parameters:
   --reanalyze-time INT, -rt INT
                         Time to Wait for Reanalysis (in Minutes)
   --output-data PATH    Data Output Directory
-```
 
 ## :whale: Using Docker
+
 * **Step 1:** Create Image
 
 ```sh
   $ docker build -t <IMAGE_NAME> .
 ```
 
-    - Step 2: Run Container and Access Container Shell
+* **Step 2:** Run Container and Access Container Shell
 
-      **Not Persistent**
-        ```sh
-        $ docker run -it <IMAGEM_NAME> /bin/bash
-        ```
+  **Not Persistent**
+```sh
+  $ docker run -it <IMAGEM_NAME> /bin/bash
+```
 
-      **Persistent**
-        ```sh
-        $ docker run -v <VOLUME_NAME>:/adgen -it <IMAGEM_NAME> /bin/bash
-        ```
+  **Persistent**
+```sh
+  $ docker run -v <VOLUME_NAME>:/adgen -it <IMAGEM_NAME> /bin/bash
+```
 
-    - Step 3: Run Tool Command Line
+* **Step 3:** Run Tool Command Line
 
 ## :keyboard: Usage Examples (Command Line)
 
-    - **download** APKs in **input/sha256_10.txt** with **3** parallel downloads
-      ```sh
-      $ python3 adgen.py --download -npd 3 -azk [AZ_KEY] --file input/sha256_10.txt
-      ```
+* **download** APKs in **input/sha256_10.txt** with **3** parallel downloads
+```sh
+  $ python3 adgen.py --download -npd 3 -azk [AZ_KEY] --file input/sha256_10.txt
+```
 
-    - **download** and **extract** APKs in **input/sha256_10.txt** with **10** parallel downloads and **5** parallel extractions
-      ```sh
-      $ python3 adgen.py --download -npd 10 -azk [AZ_KEY] --extraction -npe 5 --file input/sha256_20.txt
-      ```
+* **download** and **extract** APKs in **input/sha256_10.txt** with **10** parallel downloads and **5** parallel extractions
+```sh
+  $ python3 adgen.py --download -npd 10 -azk [AZ_KEY] --extraction -npe 5 --file input/sha256_20.txt
+```
 
-    - **download**, **extract** and **label** APKs in **input/sha256_05.txt** with **2** parallel downloads
-      ```sh
-      $ python3 adgen.py --download -npd 2 -azk [AZ_KEY] --extraction --label -vtk [VT_KEY] --file input/sha256_05.txt
-      ```
+* **download**, **extract** and **label** APKs in **input/sha256_05.txt** with **2** parallel downloads
+```sh
+  $ python3 adgen.py --download -npd 2 -azk [AZ_KEY] --extraction --label -vtk [VT_KEY] --file input/sha256_05.txt
+```
 
-    - **label** APKs in **input/sha256_20.txt** waiting **1** hour for reanalysis
-      ```sh
-      $ python3 adgen.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
-      ```
+* **label** APKs in **input/sha256_20.txt** waiting **1** hour for reanalysis
+```sh
+  $ python3 adgen.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
+```

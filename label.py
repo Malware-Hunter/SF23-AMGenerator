@@ -40,7 +40,7 @@ class VirusTotalLabeler:
         }
         self.report_wait_time = 15
         self.reanalyze_wait_time = 15
-        self.reanalyze_time = args.reanalyze_time * 3600
+        self.reanalyze_time = args.reanalyze_time * 60
         self.next_start = int(time.time() + 86401)
         self.log_file = {
             'report': f'log_report_{self.api_key[:5]}.log',

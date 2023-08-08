@@ -43,7 +43,7 @@ def parse_args(argv):
     parser_action.add_argument('--vt-key', '-vtk', metavar = 'KEY',
         type = str, help = 'VirusTotal\'s API Key')
     parser_action.add_argument('--reanalyze-time', '-rt', metavar = 'INT',
-        type = int, help = 'Time to Wait for Reanalysis (in Hours)', default = 24)
+        type = int, help = 'Time to Wait for Reanalysis (in Minutes)', default = 60)
     parser_action.add_argument('--output-data', metavar = 'PATH',
         type = str, help = 'Data Output Directory', default = 'adg_data')
 
@@ -51,12 +51,8 @@ def parse_args(argv):
         parser.error('no argument presented')
 
     args = parser.parse_args(argv)
-    #if (args.download or args.label) and not args.file:
-        #parser.error('the following arguments are required when --download or --label is set: --file')
     if args.download and not args.androzoo_key:
         parser.error('the following arguments are required when --download is set: --androzoo-key/-ak')
-    #if args.extraction and not args.download and not args.download_dir:
-        #parser.error('the following arguments are required when --download is set: --androzoo-key/-ak')
     if args.label and not args.vt_key:
         parser.error('the following arguments are required when --label is set: --vt-key/-vtk')
     return args
