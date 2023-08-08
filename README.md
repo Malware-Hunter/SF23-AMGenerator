@@ -16,12 +16,13 @@ The tool has been tested in the following environments:
     $ pip install -r requirements.txt
     ```
 
-
 ### :pushpin: Available Arguments:
 
     ```
-    usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH] [--androzoo-key KEY] [--num-parallel-download INT] [--extraction]
-                    [--num-parallel-extraction INT] [--label] [--vt-key KEY] [--output-data PATH]
+    usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH]
+                    [--androzoo-key KEY] [--num-parallel-download INT]
+                    [--extraction] [--num-parallel-extraction INT] [--label]
+                    [--vt-key KEY] [--reanalyze-time INT] [--output-data PATH]
 
     Show Help:
       -h, --help            Show Help Message And Exit
@@ -62,5 +63,5 @@ The tool has been tested in the following environments:
 
       **Persistent**
         ```sh
-        $ docker run -v <VOLUME_NAME>:/sf23_adgen -it <IMAGEM_NAME> /bin/bash
+        $ docker run -v <VOLUME_NAME>:/adgen -it <IMAGEM_NAME> /bin/bash
         ```
