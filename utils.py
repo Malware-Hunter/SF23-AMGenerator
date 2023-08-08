@@ -54,3 +54,7 @@ def epoch_to_human_date(epoch_time):
     date = datetime.datetime.fromtimestamp(epoch_time)
     human_readable_date = date.strftime('%Y-%m-%d %H:%M:%S')
     return human_readable_date
+
+def save_as_json(data, json_file):
+    with open(str(json_file), 'w') as fp:
+        json.dump(data, fp, indent = 4)

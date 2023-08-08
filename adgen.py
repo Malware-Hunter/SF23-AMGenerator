@@ -11,9 +11,9 @@ import logging
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from download import *
-from utils import *
 from extraction import *
 from label import *
+from utils import *
 
 class DefaultHelpParser(argparse.ArgumentParser):
     def error(self, message):
@@ -94,7 +94,7 @@ if __name__=="__main__":
     args = parse_args(sys.argv[1:])
 
     if not os.path.exists(args.file):
-        logger.error(f'Invalid or Non-existent File: {args.file}')
+        print_error(f'Invalid or Non-existent File: {args.file}', logger)
         sys.exit(2)
 
     sha256_list = load_file(args.file)
