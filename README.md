@@ -1,6 +1,6 @@
 # ADGenerator - Android Data Generator
 
-### :gear: Environment
+## :gear: Environment
 
 The tool has been tested in the following environments:
 
@@ -10,13 +10,13 @@ The tool has been tested in the following environments:
 - Python = `Python 3.8.10`
 
 
-### :memo: Installing Python Requirements
+## :memo: Installing Python Requirements
 
     ```sh
     $ pip install -r requirements.txt
     ```
 
-### :pushpin: Available Arguments:
+## :pushpin: Available Arguments:
 
     ```
     usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH]
@@ -46,7 +46,7 @@ The tool has been tested in the following environments:
       --output-data PATH    Data Output Directory
     ```
 
-### :whale: Using Docker
+## :whale: Using Docker
 
     - Step 1: Create Image
 
@@ -65,3 +65,27 @@ The tool has been tested in the following environments:
         ```sh
         $ docker run -v <VOLUME_NAME>:/adgen -it <IMAGEM_NAME> /bin/bash
         ```
+
+    - Step 3: Run Tool Command Line
+
+## :keyboard: Usage Examples (Command Line)
+
+    - **download** APKs in **input/sha256_10.txt** with **3** parallel downloads
+      ```sh
+      $ python3 adgen.py --download -npd 3 -azk [AZ_KEY] --file input/sha256_10.txt
+      ```
+
+    - **download** and **extract** APKs in **input/sha256_10.txt** with **10** parallel downloads and **5** parallel extractions
+      ```sh
+      $ python3 adgen.py --download -npd 10 -azk [AZ_KEY] --extraction -npe 5 --file input/sha256_20.txt
+      ```
+
+    - **download**, **extract** and **label** APKs in **input/sha256_05.txt** with **2** parallel downloads
+      ```sh
+      $ python3 adgen.py --download -npd 2 -azk [AZ_KEY] --extraction --label -vtk [VT_KEY] --file input/sha256_05.txt
+      ```
+
+    - **label** APKs in **input/sha256_20.txt** waiting **1** hour for reanalysis
+      ```sh
+      $ python3 adgen.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
+      ```
