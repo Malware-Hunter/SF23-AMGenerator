@@ -2,7 +2,7 @@
 
 ## :gear: Environment
 
-The tool has been tested in the following environments:
+the tool has been tested in the following environments:
 
 **Ubuntu 20.04**
 
@@ -12,47 +12,46 @@ The tool has been tested in the following environments:
 
 ## :memo: Installing Python Requirements
 
-    ```sh
+    ~~~sh
     $ pip install -r requirements.txt
-    ```
+    ~~~
 
 ## :pushpin: Available Arguments:
 
-    ```
-    usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH]
-                    [--androzoo-key KEY] [--num-parallel-download INT]
-                    [--extraction] [--num-parallel-extraction INT] [--label]
-                    [--vt-key KEY] [--reanalyze-time INT] [--output-data PATH]
+```
+usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH]
+                [--androzoo-key KEY] [--num-parallel-download INT]
+                [--extraction] [--num-parallel-extraction INT] [--label]
+                [--vt-key KEY] [--reanalyze-time INT] [--output-data PATH]
 
-    Show Help:
-      -h, --help            Show Help Message And Exit
+Show Help:
+  -h, --help            Show Help Message And Exit
 
-    ADGen Parameters:
-      --file FILE           File With a List of APKs SHA256 (One Per Line)
-      --download            Download APK files
-      --download_dir PATH   Directory to/from Downloads
-      --androzoo-key KEY, -azk KEY
-                            Androzoo API Key
-      --num-parallel-download INT, -npd INT
-                            Number of Parallel Downloads
-      --extraction          APK Metadata and Features Extraction
-      --num-parallel-extraction INT, -npe INT
-                            Number of Parallel Process for Feature Extraction
-      --label               VirusTotal Labelling
-      --vt-key KEY, -vtk KEY
-                            VirusTotal's API Key
-      --reanalyze-time INT, -rt INT
-                            Time to Wait for Reanalysis (in Hours)
-      --output-data PATH    Data Output Directory
-    ```
+ADGen Parameters:
+  --file FILE           File With a List of APKs SHA256 (One Per Line)
+  --download            Download APK files
+  --download_dir PATH   Directory to/from Downloads
+  --androzoo-key KEY, -azk KEY
+                        Androzoo API Key
+  --num-parallel-download INT, -npd INT
+                        Number of Parallel Downloads
+  --extraction          APK Metadata and Features Extraction
+  --num-parallel-extraction INT, -npe INT
+                        Number of Parallel Process for Feature Extraction
+  --label               VirusTotal Labelling
+  --vt-key KEY, -vtk KEY
+                        VirusTotal's API Key
+  --reanalyze-time INT, -rt INT
+                        Time to Wait for Reanalysis (in Minutes)
+  --output-data PATH    Data Output Directory
+```
 
 ## :whale: Using Docker
+* **Step 1:** Create Image
 
-    - Step 1: Create Image
-
-        ```sh
-        $ docker build -t <IMAGE_NAME> .
-        ```
+```sh
+  $ docker build -t <IMAGE_NAME> .
+```
 
     - Step 2: Run Container and Access Container Shell
 
