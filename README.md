@@ -18,6 +18,7 @@ the tool has been tested in the following environments:
 
 ## :pushpin: Available Arguments:
 
+```
 usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH]
                 [--androzoo-key KEY] [--num-parallel-download INT]
                 [--extraction] [--num-parallel-extraction INT] [--label]
@@ -43,6 +44,7 @@ ADGen Parameters:
   --reanalyze-time INT, -rt INT
                         Time to Wait for Reanalysis (in Minutes)
   --output-data PATH    Data Output Directory
+```
 
 ## :whale: Using Docker
 
@@ -54,12 +56,14 @@ ADGen Parameters:
 
 * **Step 2:** Run Container and Access Container Shell
 
-  **Not Persistent**
+- **Not Persistent**
+
 ```sh
   $ docker run -it <IMAGEM_NAME> /bin/bash
 ```
 
-  **Persistent**
+- **Persistent**
+
 ```sh
   $ docker run -v <VOLUME_NAME>:/adgen -it <IMAGEM_NAME> /bin/bash
 ```
