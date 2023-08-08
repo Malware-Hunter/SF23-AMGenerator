@@ -12,9 +12,9 @@ the tool has been tested in the following environments:
 
 ## :memo: Installing Python Requirements
 
-    ~~~sh
-    $ pip install -r requirements.txt
-    ~~~
+~~~sh
+  $ pip install -r requirements.txt
+~~~
 
 ## :pushpin: Available Arguments:
 
