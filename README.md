@@ -1,6 +1,6 @@
 # ADGenerator - Android Data Generator
 
-## Environment
+### :gear: Environment
 
 The tool has been tested in the following environments:
 
@@ -44,3 +44,23 @@ The tool has been tested in the following environments:
                             Time to Wait for Reanalysis (in Hours)
       --output-data PATH    Data Output Directory
     ```
+
+### :whale: Using Docker
+
+    - Step 1: Create Image
+
+        ```sh
+        $ docker build -t <IMAGE_NAME> .
+        ```
+
+    - Step 2: Run Container and Access Container Shell
+
+      **Not Persistent**
+        ```sh
+        $ docker run -it <IMAGEM_NAME> /bin/bash
+        ```
+
+      **Persistent**
+        ```sh
+        $ docker run -v <VOLUME_NAME>:/sf23_adgen -it <IMAGEM_NAME> /bin/bash
+        ```
