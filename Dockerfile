@@ -10,9 +10,14 @@ RUN apt-get install -y \
     curl \
     tzdata \
     net-tools \
-    wget
+    wget \
+    vim
 
-WORKDIR /adgen
+WORKDIR /AMGenerator
 COPY . ./
+
 RUN python3 -m pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+CMD ["bash", "scripts/run_app_in_docker.sh"]
+
