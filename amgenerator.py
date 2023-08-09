@@ -62,26 +62,17 @@ def generate_apk_file_list(download_dir, sha256_list):
     return apk_file_list
 
 def run_download(args, sha256_list):
-    global logger
-    print_info('Download Process Started', logger)
     apk_downloader = AndrozooDownloader(args)
     apk_downloader.download_in_parallel(sha256_list)
-    print_info('Download Process Finished', logger)
 
 def run_extraction(args, sha256_list):
-    global logger
-    print_info('Extraction Process Started', logger)
     apk_file_list = generate_apk_file_list(args.download_dir, sha256_list)
     apk_extractor = AndroGuardExtractor(args)
     apk_extractor.extraction_in_parallel(apk_file_list)
-    print_info('Extraction Process Finished', logger)
 
 def run_label(args, sha256_list):
-    global logger
-    print_info('Label Process Started', logger)
     apk_labeler = VirusTotalLabeler(args)
     apk_labeler.run_label(sha256_list)
-    print_info('Label Process Finished', logger)
 
 if __name__=="__main__":
     global logger
@@ -107,4 +98,5 @@ if __name__=="__main__":
             futures_list.append(executor.submit(run_label, args, sha256_list))
 
         for future in as_completed(futures_list):
-            pass
+            #pass
+            future.result()

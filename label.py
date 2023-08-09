@@ -220,6 +220,7 @@ class VirusTotalLabeler:
         return False
 
     def run_report(self, sha256_list):
+        processed = 0
         for sha256 in sha256_list:
             print_info(f'Processing {sha256} ...', self.logger['report'])
             if self.updated_or_reanalyze(sha256):
@@ -241,9 +242,12 @@ class VirusTotalLabeler:
                 except Exception as e:
                     print_exception(e, 'Exception Processing Report', self.logger['report'])
                     self.write_label_log(sha256, type(e).__name__, 'report')
+            processed += 1
             print_info(f'Requests Used: {self.request_number} (Waiting For New Request)', self.logger['report'])
-            time.sleep(self.wait_time['report'])
+            if processed != len(sha256_list):
+                time.sleep(self.wait_time['report'])
             self.api_key_access.release()
+        print_info('REPORT Process Finished', self.logger['reanalyze'], 'blue')
 
     def run_reanalyze(self):
         while True:
@@ -251,8 +255,10 @@ class VirusTotalLabeler:
             if not amount: #if no files wait self.reanalyze_time and test again
                 print_info('Reanalyze Queue is Empty', self.logger['reanalyze'], 'blue')
                 if self.thread_report.done():
+                    print_info('REANALYZE Process Finished', self.logger['reanalyze'], 'blue')
                     break
-                time.sleep(self.reanalyze_time)
+                print_info('The REPORT Process is Still Running', self.logger['reanalyze'], 'blue')
+                time.sleep(self.wait_time['reanalyze'])
                 continue
             time_elapsed = time.time() - timestamp
             if time_elapsed < self.reanalyze_time:

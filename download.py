@@ -47,5 +47,7 @@ class AndrozooDownloader:
                 print_error(f'When Downloading {sha256}', self.logger)
 
     def download_in_parallel(self, sha256_list):
+        print_info('DOWNLOAD Process Started', self.logger, 'blue')
         with ThreadPoolExecutor(max_workers = self.num_parallel_downloads) as executor:
             executor.map(self.download_apk, sha256_list)
+        print_info('DOWNLOAD Process Finished', self.logger, 'blue')

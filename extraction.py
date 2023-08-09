@@ -256,5 +256,7 @@ class AndroGuardExtractor:
             os.remove(downloaded_file)
 
     def extraction_in_parallel(self, apk_file_list):
+        print_info('EXTRACTION Process Started', self.logger, 'blue')
         with ThreadPoolExecutor(max_workers = self.num_parallel_extraction) as executor:
             executor.map(self.extract_apk_data, apk_file_list)
+        print_info('EXTRACTION Process Finished', self.logger, 'blue')
