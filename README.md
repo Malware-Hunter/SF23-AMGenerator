@@ -66,7 +66,7 @@ ls outputs*
 ```
 
   
-## :memo: Running AMGenerator in your Linux
+## :memo: Running it in your Linux
 
 Installing requirements
 ~~~sh
@@ -89,7 +89,7 @@ usage: amgenerator.py [-h] --file FILE [--download] [--download_dir PATH]
 Show Help:
   -h, --help            Show Help Message And Exit
 
-ADGen Parameters:
+ADGenerator Parameters:
   --file FILE           File With a List of APKs SHA256 (One Per Line)
   --download            Download APK files
   --download_dir PATH   Directory to/from Downloads
@@ -109,40 +109,26 @@ ADGen Parameters:
 ```
 
 
-  - **Not Persistent**
-
-  ```sh
-    $ docker run -it <IMAGEM_NAME> /bin/bash
-  ```
-
-  - **Persistent**
-
-  ```sh
-    $ docker run -v <VOLUME_NAME>:/amgen -it <IMAGEM_NAME> /bin/bash
-  ```
-
-* **Step 3:** Run Tool Command Line
-
-## :keyboard: Usage Examples (Command Line)
+## :keyboard: Usage examples
 
 * **download** APKs in **input/sha256_10.txt** with **3** parallel downloads
 ```sh
-  $ python3 amgenerator.py --download -npd 3 -azk [AZ_KEY] --file input/sha256_10.txt
+  python3 amgenerator.py --download -npd 3 -azk [AZ_KEY] --file input/sha256_10.txt
 ```
 
 * **download** and **extract** APKs in **input/sha256_10.txt** with **10** parallel downloads and **5** parallel extractions
 ```sh
-  $ python3 amgenerator.py --download -npd 10 -azk [AZ_KEY] --extraction -npe 5 --file input/sha256_20.txt
+  python3 amgenerator.py --download -npd 10 -azk [AZ_KEY] --extraction -npe 5 --file input/sha256_20.txt
 ```
 
 * **download**, **extract** and **label** APKs in **input/sha256_05.txt** with **2** parallel downloads
 ```sh
-  $ python3 amgenerator.py --download -npd 2 -azk [AZ_KEY] --extraction --label -vtk [VT_KEY] --file input/sha256_05.txt
+  python3 amgenerator.py --download -npd 2 -azk [AZ_KEY] --extraction --label -vtk [VT_KEY] --file input/sha256_05.txt
 ```
 
 * **label** APKs in **input/sha256_20.txt** waiting **1** hour for reanalysis
 ```sh
-  $ python3 amgenerator.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
+  python3 amgenerator.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
 ```
 ## :gear: Environments
 
