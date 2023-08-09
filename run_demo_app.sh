@@ -23,7 +23,7 @@ printline
 printline
 echo -n "Installing Python requirements ... "
 
-pip install -r requirements.txt
+pip install -r requirements.txt  > /dev/null 2>&1
 
 echo "done."
 printline
@@ -39,4 +39,3 @@ python3 amgenerator.py --download -npd 2 -azk fa08a4ad8d8c9d3c56236d27bd9b99bb83
 echo ""
 echo "done."
 printline
-

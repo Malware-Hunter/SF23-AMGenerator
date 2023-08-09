@@ -2,6 +2,7 @@
 import threading
 import argparse
 import os
+from os.path import basename, dirname
 import sys
 from termcolor import colored
 import logging
@@ -11,6 +12,7 @@ from utils import *
 import pandas as pd
 import time
 import fcntl
+import glob
 
 class APIKeyAccess:
     def __init__(self):
@@ -41,10 +43,10 @@ class VirusTotalLabeler:
         self.report_wait_time = 15
         self.reanalyze_wait_time = 15
         self.reanalyze_time = args.reanalyze_time * 60
-        self.next_start = int(time.time() + 86401)
+        self.next_start = int(time.time() + 86400)
         self.log_file = {
-            'report': f'log_report_{self.api_key[:5]}.log',
-            'reanalyze': f'log_reanalyze_{self.api_key[:5]}.log'
+            'report': f'log_report_{self.api_key}.log',
+            'reanalyze': f'log_reanalyze_{self.api_key}.log'
         }
         self.queue_file = 'queue_reanalyze.que'
         self.deadline = 1672531201 #epoch time to 2023-01-01 00:00:01
@@ -63,7 +65,7 @@ class VirusTotalLabeler:
             self.request_number = 0
             self.wait_time['report'] = int(self.next_start - time.time())
             self.wait_time['reanalyze'] = int(self.next_start - time.time())
-            self.next_start += 86401 #next start in 24h1s
+            self.next_start += 86400 #next start in 24h
 
     def write_label_log(self, sha256, status, source):
         try:
@@ -111,21 +113,24 @@ class VirusTotalLabeler:
             print_exception(e, 'Exception Writing to Queue', self.logger[source])
 
     def read_label_queue(self, action):
-        with open(self.queue_file, 'r+') as file:
-            fcntl.flock(file.fileno(), fcntl.LOCK_EX)
-            lines = file.readlines()
-            amount_ = len(lines)
-            if amount_ > 0:
-                first_line = lines[0].strip()
-                older_, timestamp = first_line.split(',')
-                if action == 'dequeue':
-                    file.seek(0)
-                    file.writelines(lines[1:])
-                    file.truncate()
-                fcntl.flock(file.fileno(), fcntl.LOCK_UN)
-                return amount_, older_, int(timestamp)
-            else:
-                fcntl.flock(file.fileno(), fcntl.LOCK_UN)
+        try:
+            with open(self.queue_file, 'r+') as file:
+                fcntl.flock(file.fileno(), fcntl.LOCK_EX)
+                lines = file.readlines()
+                amount_ = len(lines)
+                if amount_ > 0:
+                    first_line = lines[0].strip()
+                    older_, timestamp = first_line.split(',')
+                    if action == 'dequeue':
+                        file.seek(0)
+                        file.writelines(lines[1:])
+                        file.truncate()
+                    fcntl.flock(file.fileno(), fcntl.LOCK_UN)
+                    return amount_, older_, int(timestamp)
+                else:
+                    fcntl.flock(file.fileno(), fcntl.LOCK_UN)
+        except FileNotFoundError:
+            return None, None, None
         return None, None, None
 
     def request_reanalyze(self, sha256):
@@ -187,44 +192,58 @@ class VirusTotalLabeler:
             self.handle_vt_error(sha256, type(e).__name__, e.args[0], source)
         return None
 
-    def run_report(self, sha256_list):
-        log_df = load_csv_file(self.log_file['report'], cols = ['sha256', 'status'])
-        sha256_total_in_list = len(sha256_list)
-        sha256_to_process = sha256_list
-        if not log_df.empty:
-            sha256_to_process = list(set(sha256_list) - set(log_df['sha256']))
-            sha256_total_processed = sha256_total_in_list - len(sha256_to_process)
+    def updated_or_reanalyze(self, sha256):
+        filename_pattern = os.path.join(self.label_dir, f'{sha256}_*.json')
+        file_list = glob.glob(filename_pattern)
+        analysis_date = 0
+        for file in file_list:
+            filename = os.path.splitext(basename(file))[0]
+            _, timestamp = filename.split('_')
+            if int(timestamp) > analysis_date:
+                analysis_date = int(timestamp)
+        if analysis_date > self.deadline:
+            print_info(f'{sha256} Labeling is Updated', self.logger['report'])
+            return True
+        else:
+            try:
+                with open(self.queue_file, 'r') as file:
+                    fcntl.flock(file.fileno(), fcntl.LOCK_EX)
+                    for line in file:
+                        sha256_queued, _ = line.strip().split(',')
+                        if sha256 == sha256_queued:
+                            print_info(f'{sha256} is in Reanalysis', self.logger['report'], 'yellow')
+                            fcntl.flock(file.fileno(), fcntl.LOCK_UN)
+                            return True
+                    fcntl.flock(file.fileno(), fcntl.LOCK_UN)
+            except FileNotFoundError:
+                return False
+        return False
 
-        for sha256 in sha256_to_process:
-            self.api_key_access.acquire()
+    def run_report(self, sha256_list):
+        for sha256 in sha256_list:
             print_info(f'Processing {sha256} ...', self.logger['report'])
+            if self.updated_or_reanalyze(sha256):
+                continue
+            self.api_key_access.acquire()
             json_data = self.vt_report(sha256, 'report')
             if json_data:
                 try:
-                    last_analysis_date = int(json_data['data']['attributes']['last_analysis_date'])
-                    human_readable_date = epoch_to_human_date(last_analysis_date)
-                    is_updated = last_analysis_date > self.deadline
+                    analysis_date = int(json_data['data']['attributes']['last_analysis_date'])
+                    human_readable_date = epoch_to_human_date(analysis_date)
+                    is_updated = analysis_date > self.deadline
                     color = 'green' if is_updated else 'red'
                     status = 'Updated' if is_updated else 'Out of Date'
                     print_info(f'Last Analysis: {human_readable_date} ({status})', self.logger['report'], color)
-                    self.process_report(sha256, json_data, last_analysis_date, is_updated, 'report')
+                    self.process_report(sha256, json_data, analysis_date, is_updated, 'report')
                     if not is_updated:
                         print_info(f'Requests Used: {self.request_number} (Waiting For New Request)', self.logger['report'])
                         self.request_reanalyze(sha256)
                 except Exception as e:
                     print_exception(e, 'Exception Processing Report', self.logger['report'])
                     self.write_label_log(sha256, type(e).__name__, 'report')
-
-            sha256_total_processed += 1
-            print_info(f'Total Samples Processed: {sha256_total_processed} of {sha256_total_in_list}', self.logger['report'])
             print_info(f'Requests Used: {self.request_number} (Waiting For New Request)', self.logger['report'])
             time.sleep(self.wait_time['report'])
             self.api_key_access.release()
-
-        log_df = self.load_csv_file(self.log_file['report'], cols = ['sha256', 'status'])
-        score = log_df['status'].value_counts()
-        print_info('>> Execution Summary <<', self.logger['report'], 'blue')
-        print_info(score.to_string(dtype = False), self.logger['report'], 'white')
 
     def run_reanalyze(self):
         while True:
@@ -238,7 +257,7 @@ class VirusTotalLabeler:
             time_elapsed = time.time() - timestamp
             if time_elapsed < self.reanalyze_time:
                 self.wait_time['reanalyze'] = self.reanalyze_time - time_elapsed
-                print_info(f'Time to Reanalyze {sha256} Not Elapsed', self.logger['reanalyze'], 'yellow')
+                print_info(f'Time to Reanalyze {sha256} Not Elapsed. Waiting ...', self.logger['reanalyze'], 'yellow')
                 time.sleep(self.wait_time['reanalyze'])
             self.api_key_access.acquire()
             print_info(f'SHA256 in Reanalyze Queue: {amount}', self.logger['reanalyze'], 'blue')

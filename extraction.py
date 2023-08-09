@@ -135,10 +135,10 @@ class AndroGuardExtractor:
                 wait_for_file(downloaded_file)
             except Exception as e:
                 print_exception(e, 'Wait For File', self.logger)
-        print_info(f'Extracting {sha256}', self.logger)
         if not os.path.exists(apk_file):
             print_error(f'{sha256} Not Downloaded', self.logger)
             return
+        print_info(f'Extracting {sha256}', self.logger)
         try:
             f = open(apk_file, 'rb')
             contents = f.read()
@@ -152,7 +152,7 @@ class AndroGuardExtractor:
         try:
             app, d, dx = AnalyzeAPK(apk_file)
         except Exception as e:
-            print_exception(e, f'Error in AnalyzeAPK {sha256}', self.logger)
+            print_exception(e, f'Error in AnalyzeAPK {apk_file}', self.logger)
             return
 
         try:
