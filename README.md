@@ -1,15 +1,73 @@
-# AMGenerator - Android Metadata Generator
+# AMGenerator
 
-## :gear: Environment
-
-the tool has been tested in the following environments:
-
-**Ubuntu 20.04**
-
-- Kernel = `Linux version 5.4.0-120-generic (buildd@lcy02-amd64-006) (gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)) #136-Ubuntu SMP Fri Jun 10 13:40:48 UTC 2022`
-- Python = `Python 3.8.10`
+  
+[AMGenerator Overview](https://github.com/Malware-Hunter/SF23-AMGenerator/blob/main/OVERVIEW.md)
 
 
+## Clonning the GitHub repository
+
+```bash
+
+git clone https://github.com/Malware-Hunter/SF23-AMGenerator.git
+
+cd SF23-AMGenerator
+
+```
+
+## Running **demo** scripts
+  
+
+
+**Option 1**: will install requirements in your Linux system and run amgenerator.py app
+```bash
+./run_demo_app.sh
+
+```
+
+**Option 2**: will download and execute the Docker image **sf23/amgenerator:latest** from [hub.docker.com](hub.docker.com)
+```bash
+./run_demo_docker.sh
+
+```
+
+**Option 3**: will download and execute the Docker image **sf23/amgenerator:latest** from [hub.docker.com](hub.docker.com) and initiave a container in **persistent** (shared) mode
+```bash
+./scripts/docker_shared_run.sh
+
+```
+**Datasets will be generated in the directory called outputs**
+  
+
+## Building and running your own Docker :whale: image
+
+
+### Installing Docker :whale: and building the image
+```bash
+
+sudo apt install docker docker.io
+
+docker  build  -t  sf23/amgenerator:latest  .
+
+```
+
+## Starting a Docker :whale: container
+
+- **Not Persistent**
+```bash
+
+docker  run  -it  sf23/amgenerator
+
+```
+- **Persistent**
+```bash
+
+docker run -v $(readlink -f .):/AMGenerator -it sf23/amgenerator bash scripts/run_app_in_docker.sh
+
+ls outputs*
+
+```
+
+  
 ## :memo: Installing Python Requirements
 
 ~~~sh
@@ -46,15 +104,6 @@ ADGen Parameters:
   --output-data PATH    Data Output Directory
 ```
 
-## :whale: Using Docker
-
-* **Step 1:** Create Image
-
-```sh
-  $ docker build -t <IMAGE_NAME> .
-```
-
-* **Step 2:** Run Container and Access Container Shell
 
   - **Not Persistent**
 
@@ -91,3 +140,19 @@ ADGen Parameters:
 ```sh
   $ python3 amgenerator.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
 ```
+## :gear: Environments
+
+AMGenerator has been tested in the following environments:
+
+**Ubuntu 20.04**
+
+- Kernel = `Linux version 5.4.0-120-generic (buildd@lcy02-amd64-006) (gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)) #136-Ubuntu SMP Fri Jun 10 13:40:48 UTC 2022`
+- Python = `Python 3.8.10`
+
+
+**Debian Buster (Docker container)**
+
+- Kernel = `5.19.0-46-generic #47~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Jun 21 15:35:31 UTC 2 x86_64 GNU/Linux`
+- Python = `Python 3.8.10`
+
+
