@@ -5,7 +5,7 @@
 
 ![AMGenerator Overview](https://github.com/Malware-Hunter/SF23-AMGenerator/blob/main/images/amgenerator.pdf.png)
 
-Sure, here's the text formatted in Markdown:
+
 
 a) The initial phase involves data acquisition based on AndroZoo metadata, this repository houses a selected collection of applications.
 
