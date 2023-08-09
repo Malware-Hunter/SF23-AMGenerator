@@ -31,7 +31,7 @@ def parse_args(argv):
         help = 'File With a List of APKs SHA256 (One Per Line)', required = True)
     parser_action.add_argument('--download', help = 'Download APK files', action = 'store_true')
     parser_action.add_argument('--download_dir', metavar = 'PATH',
-        type = str, help = 'Directory to/from Downloads', default = 'amg_download')
+        type = str, help = 'Directory to/from Downloads', default = 'outputs_amg_download')
     parser_action.add_argument('--androzoo-key', '-azk', metavar = 'KEY',
         type = str, help = 'Androzoo API Key')
     parser_action.add_argument('--num-parallel-download', '-npd', metavar = 'INT',
@@ -45,7 +45,7 @@ def parse_args(argv):
     parser_action.add_argument('--reanalyze-time', '-rt', metavar = 'INT',
         type = int, help = 'Time to Wait for Reanalysis (in Minutes)', default = 60)
     parser_action.add_argument('--output-data', metavar = 'PATH',
-        type = str, help = 'Data Output Directory', default = 'amg_data')
+        type = str, help = 'Data Output Directory', default = 'outputs_amg_data')
 
     if not argv:
         parser.error('no argument presented')
