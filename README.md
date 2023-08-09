@@ -1,6 +1,5 @@
 # AMGenerator
 
-  
 [AMGenerator Overview](https://github.com/Malware-Hunter/SF23-AMGenerator/blob/main/OVERVIEW.md)
 
 
@@ -41,7 +40,7 @@ cd SF23-AMGenerator
 ## Building and running your own Docker :whale: image
 
 
-### Installing Docker :whale: and building the image
+Installing Docker and building your image
 ```bash
 
 sudo apt install docker docker.io
@@ -50,15 +49,15 @@ docker  build  -t  sf23/amgenerator:latest  .
 
 ```
 
-## Starting a Docker :whale: container
+Starting a Docker container
 
-- **Not Persistent**
+**Non persistent mode**: output files will be deleted when the container finished execution.
 ```bash
 
 docker  run  -it  sf23/amgenerator
 
 ```
-- **Persistent**
+**Persistent mode**: output files will be saved and avaliable at the current directory.
 ```bash
 
 docker run -v $(readlink -f .):/AMGenerator -it sf23/amgenerator bash scripts/run_app_in_docker.sh
@@ -68,10 +67,16 @@ ls outputs*
 ```
 
   
-## :memo: Installing Python Requirements
+## :memo: Running AMGenerator in your Linux
 
+Installing requirements
 ~~~sh
-  $ pip install -r requirements.txt
+pip install -r requirements.txt
+~~~
+
+Running the app (make sure you have Python 3.8.10 in your system)
+~~~sh
+python3 amgenerator.py --download -npd 2 -azk fa08a4ad8d8c9d3c56236d27bd9b99bb83c66c3fd65642d496ea2cbd13d4e8a4 --extraction --label -vtk d211226fd8cd68e10170dbc053a5cf6ca73d73ba51587eca4908c47046a57f18 --reanalyze-time 1 --file input/sha256_05.txt
 ~~~
 
 ## :pushpin: Available Arguments:
