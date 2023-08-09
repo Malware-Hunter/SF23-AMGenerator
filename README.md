@@ -1,4 +1,4 @@
-# ADGenerator - Android Data Generator
+# AMGenerator - Android Metadata Generator
 
 ## :gear: Environment
 
@@ -19,7 +19,7 @@ the tool has been tested in the following environments:
 ## :pushpin: Available Arguments:
 
 ```
-usage: adgen.py [-h] --file FILE [--download] [--download_dir PATH]
+usage: amgen.py [-h] --file FILE [--download] [--download_dir PATH]
                 [--androzoo-key KEY] [--num-parallel-download INT]
                 [--extraction] [--num-parallel-extraction INT] [--label]
                 [--vt-key KEY] [--reanalyze-time INT] [--output-data PATH]
@@ -56,16 +56,16 @@ ADGen Parameters:
 
 * **Step 2:** Run Container and Access Container Shell
 
-- **Not Persistent**
+  - **Not Persistent**
 
 ```sh
   $ docker run -it <IMAGEM_NAME> /bin/bash
 ```
 
-- **Persistent**
+  - **Persistent**
 
 ```sh
-  $ docker run -v <VOLUME_NAME>:/adgen -it <IMAGEM_NAME> /bin/bash
+  $ docker run -v <VOLUME_NAME>:/amgen -it <IMAGEM_NAME> /bin/bash
 ```
 
 * **Step 3:** Run Tool Command Line
@@ -74,20 +74,20 @@ ADGen Parameters:
 
 * **download** APKs in **input/sha256_10.txt** with **3** parallel downloads
 ```sh
-  $ python3 adgen.py --download -npd 3 -azk [AZ_KEY] --file input/sha256_10.txt
+  $ python3 amgen.py --download -npd 3 -azk [AZ_KEY] --file input/sha256_10.txt
 ```
 
 * **download** and **extract** APKs in **input/sha256_10.txt** with **10** parallel downloads and **5** parallel extractions
 ```sh
-  $ python3 adgen.py --download -npd 10 -azk [AZ_KEY] --extraction -npe 5 --file input/sha256_20.txt
+  $ python3 amgen.py --download -npd 10 -azk [AZ_KEY] --extraction -npe 5 --file input/sha256_20.txt
 ```
 
 * **download**, **extract** and **label** APKs in **input/sha256_05.txt** with **2** parallel downloads
 ```sh
-  $ python3 adgen.py --download -npd 2 -azk [AZ_KEY] --extraction --label -vtk [VT_KEY] --file input/sha256_05.txt
+  $ python3 amgen.py --download -npd 2 -azk [AZ_KEY] --extraction --label -vtk [VT_KEY] --file input/sha256_05.txt
 ```
 
 * **label** APKs in **input/sha256_20.txt** waiting **1** hour for reanalysis
 ```sh
-  $ python3 adgen.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
+  $ python3 amgen.py --label -vtk [VT_KEY] --reanalyze-time 1 --file input/sha256_20.txt
 ```

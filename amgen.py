@@ -26,7 +26,7 @@ def parse_args(argv):
     parser = DefaultHelpParser(formatter_class = argparse.RawTextHelpFormatter)
     parser._optionals.title = 'Show Help'
 
-    parser_action = parser.add_argument_group('ADGen Parameters')
+    parser_action = parser.add_argument_group('AMGen Parameters')
     parser_action.add_argument('--file', type = str,
         help = 'File With a List of APKs SHA256 (One Per Line)', required = True)
     parser_action.add_argument('--download', help = 'Download APK files', action = 'store_true')
@@ -86,7 +86,7 @@ def run_label(args, sha256_list):
 if __name__=="__main__":
     global logger
     logging.basicConfig(format = '[%(asctime)s] %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-    logger = logging.getLogger('ADGen')
+    logger = logging.getLogger('AMGen')
     args = parse_args(sys.argv[1:])
 
     if not os.path.exists(args.file):
