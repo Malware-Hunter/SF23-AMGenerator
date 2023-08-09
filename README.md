@@ -34,13 +34,12 @@ cd SF23-AMGenerator
 ./scripts/docker_shared_run.sh
 
 ```
-**Datasets will be generated in the directory called outputs**
   
 
 ## Building and running your own Docker :whale: image
 
 
-Installing Docker and building your image
+1. Installing Docker and building your image
 ```bash
 
 sudo apt install docker docker.io
@@ -49,9 +48,9 @@ docker  build  -t  sf23/amgenerator:latest  .
 
 ```
 
-Starting a Docker container
+2. Starting a Docker container in **persistent** or **non persistent** mode.
 
-**Non persistent mode**: output files will be deleted when the container finished execution.
+**Non persistent mode**: output files will be deleted when the container finishes execution.
 ```bash
 
 docker  run  -it  sf23/amgenerator
