@@ -26,7 +26,7 @@ def parse_args(argv):
     parser = DefaultHelpParser(formatter_class = argparse.RawTextHelpFormatter)
     parser._optionals.title = 'Show Help'
 
-    parser_action = parser.add_argument_group('AMGen Parameters')
+    parser_action = parser.add_argument_group('AMGenerator parameters')
     parser_action.add_argument('--file', type = str,
         help = 'File With a List of APKs SHA256 (One Per Line)', required = True)
     parser_action.add_argument('--download', help = 'Download APK files', action = 'store_true')
@@ -48,7 +48,7 @@ def parse_args(argv):
         type = str, help = 'Data Output Directory', default = 'outputs_amg_data')
 
     if not argv:
-        parser.error('no argument presented')
+        parser.error(' missing input arguments')
 
     args = parser.parse_args(argv)
     if args.download and not args.androzoo_key:
@@ -86,7 +86,7 @@ def run_label(args, sha256_list):
 if __name__=="__main__":
     global logger
     logging.basicConfig(format = '[%(asctime)s] %(name)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
-    logger = logging.getLogger('AMGen')
+    logger = logging.getLogger('AMGenerator')
     args = parse_args(sys.argv[1:])
 
     if not os.path.exists(args.file):
