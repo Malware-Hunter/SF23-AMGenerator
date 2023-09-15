@@ -40,8 +40,8 @@ class VirusTotalLabeler:
             'report': 15,
             'reanalyze': 15
         }
-        self.report_wait_time = 15
-        self.reanalyze_wait_time = 15
+        #self.report_wait_time = 15
+        #self.reanalyze_wait_time = 15
         self.reanalyze_time = args.reanalyze_time * 60
         self.next_start = int(time.time() + 86400)
         self.log_file = {
@@ -49,7 +49,7 @@ class VirusTotalLabeler:
             'reanalyze': f'log_reanalyze_{self.api_key}.log'
         }
         self.queue_file = 'queue_reanalyze.que'
-        self.deadline = 1672531201 #epoch time to 2023-01-01 00:00:01
+        self.deadline = args.label_deadline
         os.makedirs(self.label_dir, exist_ok = True)
         self.logger = {
             'report': logging.getLogger('REPORT'),

@@ -30,7 +30,7 @@ def parse_args(argv):
     parser_action.add_argument('--file', type = str,
         help = 'File With a List of APKs SHA256 (One Per Line)', required = True)
     parser_action.add_argument('--download', help = 'Download APK files', action = 'store_true')
-    parser_action.add_argument('--download_dir', metavar = 'PATH',
+    parser_action.add_argument('--download-dir', metavar = 'PATH',
         type = str, help = 'Directory to/from Downloads', default = 'outputs_amg_download')
     parser_action.add_argument('--androzoo-key', '-azk', metavar = 'KEY',
         type = str, help = 'Androzoo API Key')
@@ -40,6 +40,8 @@ def parse_args(argv):
     parser_action.add_argument('--num-parallel-extraction', '-npe', metavar = 'INT',
         type = int, default = 1, help='Number of Parallel Process for Feature Extraction')
     parser_action.add_argument('--label', help = 'VirusTotal Labelling', action = 'store_true')
+    parser_action.add_argument('--label-deadline', '-ld', metavar = 'INT',
+        type = int, help = 'Deadline for Analysis to be Considered Current (in Epoch Format)', default = 1672531201) #epoch time to 2023-01-01 00:00:01
     parser_action.add_argument('--vt-key', '-vtk', metavar = 'KEY',
         type = str, help = 'VirusTotal\'s API Key')
     parser_action.add_argument('--reanalyze-time', '-rt', metavar = 'INT',
@@ -52,7 +54,7 @@ def parse_args(argv):
 
     args = parser.parse_args(argv)
     if args.download and not args.androzoo_key:
-        parser.error('the following arguments are required when --download is set: --androzoo-key/-ak')
+        parser.error('the following arguments are required when --download is set: --androzoo-key/-azk')
     if args.label and not args.vt_key:
         parser.error('the following arguments are required when --label is set: --vt-key/-vtk')
     return args
