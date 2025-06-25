@@ -5,16 +5,16 @@
 ![AMGenerator Overview](https://github.com/Malware-Hunter/SF23-AMGenerator/blob/main/images/AMGenerator.png)
 
 
-a) The initial phase involves APK do based on AndroZoo metadata, this repository houses a selected collection of applications.
+a) The initial phase involves APKs **download** based on AndroZoo metadata, this repository houses a selected collection of applications.
 
 - ➊ CSV file: This CSV file contains information specific to APKs.
 
-b) After download, the extraction phase begins where Androguard tool is used to extract features and metadata from the applications (APKs).
+b) After download, **extraction** phase begins where Androguard tool is used to extract features and metadata from the applications (APKs).
 
 - ➋ Features: JSON files are generated to encapsulate extracted features (e.g., Permissions, Intents, API Calls).
 - ➌ Metadata: JSON files are created to store details related to metadata (e.g., APK Name, Package, API Version).
 
-c) After extraction, the labeling phase is initiated through the VirusTotal API which integrates several scanners designed to identify malware and other security vulnerabilities.
+c) After extraction, **labeling** phase is initiated through VirusTotal API which integrates several scanners designed to identify malware and other security vulnerabilities.
 
 - ➍ JSON files: These files document scan reports provided by VirusTotal.
 
