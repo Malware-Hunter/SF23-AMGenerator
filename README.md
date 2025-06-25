@@ -1,7 +1,28 @@
 # AMGenerator
 
-[AMGenerator Overview](https://github.com/Malware-Hunter/SF23-AMGenerator/blob/main/OVERVIEW.md)
+## :mag_right: Overview
 
+![AMGenerator Overview](https://github.com/Malware-Hunter/SF23-AMGenerator/blob/main/images/AMGenerator.png)
+
+
+a) The initial phase involves APK do based on AndroZoo metadata, this repository houses a selected collection of applications.
+
+- ➊ CSV file: This CSV file contains information specific to APKs.
+
+b) After download, the extraction phase begins where Androguard tool is used to extract features and metadata from the applications (APKs).
+
+- ➋ Features: JSON files are generated to encapsulate extracted features (e.g., Permissions, Intents, API Calls).
+- ➌ Metadata: JSON files are created to store details related to metadata (e.g., APK Name, Package, API Version).
+
+c) After extraction, the labeling phase is initiated through the VirusTotal API which integrates several scanners designed to identify malware and other security vulnerabilities.
+
+- ➍ JSON files: These files document scan reports provided by VirusTotal.
+
+## Getting Labeling Data From VirusTotal
+
+![AMGenerator Labeling Data From VirusTotal](https://github.com/Malware-Hunter/SF23-AMGenerator/blob/main/images/AMGLabeling.png)
+
+# Usage
 
 ## Clonning the GitHub repository
 
@@ -13,8 +34,8 @@ cd SF23-AMGenerator
 
 ```
 
+
 ## Running **demo** scripts
-  
 
 
 **Option 1**: will install requirements in your Linux system and run amgenerator.py app
@@ -34,7 +55,7 @@ cd SF23-AMGenerator
 ./scripts/docker_shared_run.sh
 
 ```
-  
+
 
 ## Building and running your own Docker :whale: image
 
@@ -65,7 +86,7 @@ ls outputs*
 
 ```
 
-  
+
 ## :memo: Running it in your Linux
 
 Installing requirements
@@ -144,5 +165,3 @@ AMGenerator has been tested in the following environments:
 
 - Kernel = `5.19.0-46-generic #47~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Wed Jun 21 15:35:31 UTC 2 x86_64 GNU/Linux`
 - Python = `Python 3.8.10`
-
-
